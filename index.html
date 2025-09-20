@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Anniversary Surprise 💕</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .page {
+      display: none;
+      text-align: center;
+      max-width: 700px;
+      padding: 20px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease;
+    }
+    .active { display: block; }
+    h1, h2 { color: #ff4d88; }
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      white-space: pre-line;
+      text-align: left;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #ff4d88;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background: #e91e63; }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Halaman 1 -->
+  <div class="page active" id="page1">
+    <h1>💖 Hiiii Pretty 💖</h1>
+    <p> Happy 1st month anniversary baby >< .</p>
+    <button onclick="goPage(2)">Next ➡️</button>
+  </div>
+
+  <!-- Halaman 2 (ucapan utama + musik otomatis) -->
+  <div class="page" id="page2">
+    <h2>For My Future Wife ❤️</h2>
+    <p id="msg"></p>
+    <button onclick="goPage(3)">Next ➡️</button>
+    <audio id="music" src="love.mp3" preload="auto"></audio>
+  </div>
+
+  <!-- Halaman 3 -->
+  <div class="page" id="page3">
+    <h2>Forever Us ✨</h2>
+    <p> No Matter The Distance, My Heart Always Finds Its Way To You 💕</p>
+    <button onclick="goPage(1)">🔁 Back to Start</button>
+  </div>
+
+<script>
+  // Ucapan utama
+  const text = `Hi baby, did u know that when I say I love you, it’s not just words
+I want you to understand that you are my whole life,
+i know this distance isn’t easy for us
+sometimes I can only stare at the screen
+wishing you were right here beside me
+but what keeps me strong is the belief that we’re both fighting
+for the day when this longing will finally be over
+
+I don’t need much in this life, just you
+and I’m willing to wait for as long as it takes
+even though we’re far apart, my love for you never fades
+in fact, with each passing day,
+I feel even more certain that you are my home
+
+And I want you to know,
+I don’t love you just for today, but for every single day to come
+I will endure this longing, waiting patiently,
+until the day I can look into your eyes without a screen,
+hold your hand without distance,
+and embrace you without limits ☺️`;
+
+  let i = 0;
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById("msg").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 40);
+    }
+  }
+
+  function goPage(n) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page" + n).classList.add("active");
+
+    if (n === 2) {
+      // reset teks + mulai ketik ulang
+      i = 0;
+      document.getElementById("msg").innerHTML = "";
+      typeWriter();
+
+      // play musik (karena tombol Next ditekan, ini dijamin jalan di browser modern)
+      const m = document.getElementById("music");
+      m.volume = 0.7;
+      m.play();
+    }
+  }
+</script>
+
+</body>
+</html>
